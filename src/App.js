@@ -18,7 +18,7 @@ onEmpty = () => {
 onSearch = async (dpt, type) => {
   if(dpt && type){
     try {
-      let response = await fetch('https://etablissements-publics.api.gouv.fr/v3/departements/${dpt}/${type}')
+      let response = await fetch(`https://etablissements-publics.api.gouv.fr/v3/departements/${dpt}/${type}`)
       let data = await response.json();
       this.setState({
         data: data.features,
@@ -34,15 +34,15 @@ onSearch = async (dpt, type) => {
 
 renderResults = () => {
   return this.state.data.map((etablissement) => {
-    return <Etablissement key={etablissement.properties.id} properties={etablissement.properties} />
+    return <Etablissement key={etablissement} properties={etablissement.properties} />
   })
 }
   render() {
     return (
       <div className="App">
-        <h1>Annuaire des Administrations en Pays de la Loire</h1>
+        <h1>Annuaire des Administrations en Normandie et Paris</h1>
         <Recherche onSearch={this.onSearch} onEmpty={this.onEmpty} />
-        { this.state.error ? <Message warning>{this.state.error}</Message> : undefined} 
+        { this.state.error ? <Message warning>{this.state.error}</Message> : undefined}
         {this.state.data ? 
         <Card.Group>
           { this.renderResults() }
